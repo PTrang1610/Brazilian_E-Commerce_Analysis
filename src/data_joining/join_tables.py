@@ -1,0 +1,1 @@
+def join_all(customers, orders, order_items, products, payments):
