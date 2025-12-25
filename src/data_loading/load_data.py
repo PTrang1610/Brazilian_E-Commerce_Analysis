@@ -1,4 +1,10 @@
+import pandas as pd
+
 def load_all_data():
+   
+    print(f"--- Loading data from: {path} ---")
+    
+    # Reading CSV files
     customers = pd.read_csv(path + 'customers.csv')
     orders = pd.read_csv(path + 'orders.csv')
     order_items = pd.read_csv(path + 'order_items.csv')
@@ -6,18 +12,28 @@ def load_all_data():
     payments = pd.read_csv(path + 'order_payments.csv')
     
     return customers, orders, order_items, products, payments
+
 def explore(df, name):
-    print(f"\n==================== BẢNG: {name.upper()} ====================")
-   
+    print(f"\n==================== DATASET: {name.upper()} ====================")
+    
+    # 1. Preview the first 5 rows
+    print(" First 5 rows (head):")
     print(df.head())
     
-    print(" Thông tin cấu trúc (info):")
+    # 2. Check data types and non-null counts
+    print(" Data structure and types (info):")
     df.info() 
     
-    print(" Thống kê mô tả (describe):")
+    # 3. Statistical summary
+    print(" Statistical summary (describe):")
     print(df.describe())
     
-    print(" Kiểm tra giá trị thiếu (isnull):")
+    # 4. Check for missing values
+    print(" Missing values check (isnull):")
     missing = df.isnull().sum()
-    print(missing[missing > 0] if missing.sum() > 0 else "Dữ liệu đầy đủ, không thiếu.")
-    print("-" * 60)
+    if missing.sum() > 0:
+        print(missing[missing > 0])
+    else:
+        print("No missing values found. Dataset is complete.")
+    
+    print("-" * 65)
