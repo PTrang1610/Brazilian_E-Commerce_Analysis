@@ -1,6 +1,4 @@
 import pandas as pd
-import numpy as np
-
 
 def clean_customers(df):
     print("\n--- Cleaning Customers ---")

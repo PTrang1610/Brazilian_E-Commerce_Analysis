@@ -2,10 +2,13 @@ import matplotlib.pyplot as plt
 import pandas as pd  
 def run_visualization(df):
     print("===== DATA VISUALIZATION =====")
+
     df["order_purchase_timestamp"] = pd.to_datetime(df["order_purchase_timestamp"])
-# 1. Doanh thu theo tháng
-    df["month"] = df["order_purchase_timestamp"].dt.month
-    monthly_revenue=df.groupby("month")["payment_value"].sum()  
+
+    # 1. Doanh thu theo tháng
+    df["month"] = df["order_purchase_timestamp"].dt.to_period("M").astype(str)
+    monthly_revenue=df.groupby("month")["total_payment"].sum()
+
     plt.figure(figsize=(10,6))
     monthly_revenue.plot(kind='bar', color='skyblue')
     bars=plt.bar(monthly_revenue.index, monthly_revenue.values)
@@ -24,18 +27,25 @@ def run_visualization(df):
         )
     plt.tight_layout()
     plt.show()
-# 2. Trạng thái đơn hàng(tròn)
+
+
+    # 2. Trạng thái đơn hàng(tròn)
     order_status=df["order_status"].value_counts()
+
     plt.figure(figsize=(8,8))
     plt.pie(
-        order_status.values,labels=order_status.index, autopct=lambda p: f"{p:.1f}%\n({int(p*order_status.sum()/100)})",
+        order_status.values,
+        labels=order_status.index,
+        autopct=lambda p: f"{p:.1f}%\n({int(p*order_status.sum()/100)})",
         startangle=90
     )
-    plt.title("Order Status")
+    plt.title("Order Status Distribution")
     plt.tight_layout()
     plt.show()
-# 3. Top danh mục sản phẩm(10)
+
+    # 3. Top danh mục sản phẩm(10)
     top10_categories=df["product_category_name"].value_counts().head(10)
+
     plt.figure(figsize=(10,6))
     bars=plt.barh(top10_categories.index, top10_categories.values, color='green')
     plt.title("Top 10 Product Categories")
@@ -53,8 +63,9 @@ def run_visualization(df):
     plt.gca().invert_yaxis()
     plt.tight_layout()
     plt.show()
-# 4. Phương thức thanh toán
-    payment_methods=df["payment_type"].value_counts()
+
+    #4. Phương thức thanh toán
+    payment_methods=df["payment_types"].value_counts()
     plt.figure(figsize=(8,6))
     bars=plt.bar(payment_methods.index, payment_methods.values, color='orange')
     plt.title("Payment Methods")

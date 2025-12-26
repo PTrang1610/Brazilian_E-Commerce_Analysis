@@ -49,8 +49,15 @@ def join_all(customers, orders, order_items, products, payments):
         
     return df
 
+<<<<<<< HEAD
 def XuatFileMerge(df):
     OUTPUT_PATH = Path('data/processed')
     output_file = OUTPUT_PATH / 'merged_full.csv'
     df.to_csv(output_file, index=False, encoding='utf-8-sig')
 
+=======
+def export_merged(df):
+    Path("data/processed").mkdir(parents=True, exist_ok=True)
+    df.to_csv("data/processed/merged.csv", index=False, encoding="utf-8-sig")
+    print("Đã xuất file data/processed/merged.csv")
+>>>>>>> 63fa72c (add)
