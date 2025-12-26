@@ -10,7 +10,10 @@ from src.data_cleaning.clean_data import (
 from src.data_joining.join_tables import join_all, export_merged
 from src.analysis.analysis import run_analysis
 from src.visualization.visualization import run_visualization
-
+import pandas as pd
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.expand_frame_repr', False)
 
 def main():
     print("===== START BRAZILIAN E-COMMERCE ANALYSIS =====\n")
