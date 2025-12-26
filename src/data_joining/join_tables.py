@@ -53,35 +53,6 @@ def XuatFileMerge():
     OUTPUT_PATH = Path('data/processed')
     OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
     
-    #File 1: Full dataset (CSV)
     output_file = OUTPUT_PATH / 'merged_full.csv'
     df.to_csv(output_file, index=False, encoding='utf-8-sig')
-    print(f"\n Đã xuất: {output_file}")
-    print(f"  Kích thước: {output_file.stat().st_size / 1024**2:.2f} MB")
-    print(f"  Shape: {df.shape}")
-    
-    #File 2: Full dataset
-    output_parquet = OUTPUT_PATH / 'merged_full.parquet'
-    df.to_parquet(output_parquet, index=False)
-    print(f"\n Đã xuất: {output_parquet}")
-    print(f"  Kích thước: {output_parquet.stat().st_size / 1024**2:.2f} MB")
-    
-    # File 3: Essential columns only
-    essential_cols = [
-        'order_id', 'order_status', 'order_purchase_timestamp',
-        'customer_id', 'customer_city', 'customer_state',
-        'product_id', 'product_category_name',
-        'price', 'freight_value',
-        'seller_id', 'seller_city', 'seller_state',
-        'review_score', 'payment_types', 'total_payment'
-    ]
-    
-    # Lọc các cột thực sự tồn tại
-    essential_cols = [col for col in essential_cols if col in df.columns]
-    df_essential = df[essential_cols]
-    
-    output_essential = OUTPUT_PATH / 'merged_essential.csv'
-    df_essential.to_csv(output_essential, index=False, encoding='utf-8-sig')
-    print(f"\n Đã xuất: {output_essential}")
-    print(f"  Kích thước: {output_essential.stat().st_size / 1024**2:.2f} MB")
-    print(f"  Shape: {df_essential.shape}")
+
