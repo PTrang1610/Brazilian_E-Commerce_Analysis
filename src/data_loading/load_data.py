@@ -29,5 +29,6 @@ def explore(df, name):
     print(df.describe())
     
     # 4. Check for missing values
-    print("Missing values: ", df.isnull().sum())
+    print("Missing values:")
+    print(df.isnull().sum())
     print("-" * 65)
